@@ -2,6 +2,7 @@ package uk.ac.abertay.songoftheday.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -28,11 +29,12 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        /*TODO: check if user is logged in, if not dont show fab*/
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val fab = root.findViewById<FloatingActionButton>(R.id.fab)
+
+        /*TODO: check if user is logged in, if not dont show fab*/
+
 
 
         fab.setOnClickListener { view ->
@@ -47,4 +49,14 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+     fun checkLoggedIn(fab: FloatingActionButton): Boolean {
+        val login = null
+        if (login == null) {
+            fab.hide()
+            return false
+        }
+        fab.show()
+        return true
+    }
+
 }
