@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import uk.ac.abertay.songoftheday.databinding.FragmentHomeBinding
+import uk.ac.abertay.songoftheday.R
 
 class HomeFragment : Fragment() {
 
@@ -25,15 +28,18 @@ class HomeFragment : Fragment() {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
+        /*TODO: check if user is logged in, if not dont show fab*/
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val fab = root.findViewById<FloatingActionButton>(R.id.fab)
 
-/*
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "CUMMMMMMM", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
         }
-*/
+
         return root
     }
 
