@@ -22,4 +22,14 @@
         android:name="uk.ac.abertay.songoftheday.ui.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/nav_auth"
+        android:name="uk.ac.abertay.songoftheday.ui.auth.AuthFragment"
+        android:label="@string/menu_auth"
+        tools:layout="@layout/fragment_auth" />
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="uk.ac.abertay.songoftheday.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
