@@ -33,6 +33,9 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         auth = Firebase.auth
+        if (auth.currentUser != null) {
+            changeDisplayValues()
+        }
 
         return binding.root
     }
@@ -45,6 +48,16 @@ class ProfileFragment : Fragment() {
                 logUserOut(view)
             }
         }
+    }
+
+    private fun changeDisplayValues() {
+        val displayName = auth.currentUser?.displayName.toString()
+        if (displayName == null){
+            binding.nameValue.text = ""
+        }else {
+            binding.nameValue.text = displayName
+        }
+        binding.emailValue.text = auth.currentUser?.email.toString()
     }
 
     private fun logUserOut(view: View) {

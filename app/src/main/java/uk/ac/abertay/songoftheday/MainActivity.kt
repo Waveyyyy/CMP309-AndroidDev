@@ -3,6 +3,7 @@ package uk.ac.abertay.songoftheday
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -77,6 +78,18 @@ class MainActivity : AppCompatActivity() {
         menu.findItem(R.id.action_login).setVisible(false)
         menu.findItem(R.id.action_profile).setVisible(true)
     }
+// TODO: HELPPPPPPP MEEEEEE LUKAAAAAAAAAS
+/*
+    private fun changeDisplayValues() {
+        val displayName = auth.currentUser?.displayName.toString()
+        val bindName = binding.root.findViewById<String>(R.id.nav_header_name)
+        if (displayName == null){
+        }else {
+            binding.nameValue.text = displayName
+        }
+        binding.emailValue.text = auth.currentUser?.email.toString()
+    }
+*/
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)

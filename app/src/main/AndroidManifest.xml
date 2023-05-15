@@ -12,6 +12,10 @@
         android:theme="@style/Theme.SongOfTheDay"
         tools:targetApi="31">
         <activity
+            android:name=".SpotifyActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SongOfTheDay.NoActionBar"/>
+        <activity
             android:name=".ui.auth.SignupActivity"
             android:exported="false" />
         <activity

@@ -24,9 +24,13 @@
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/nav_signup"
-        android:name="uk.ac.abertay.songoftheday.ui.auth.AuthFragment"
+        android:name="uk.ac.abertay.songoftheday.ui.auth.SignupActivity"
         android:label="@string/menu_signup"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/activity_signup" >
+        <action
+            android:id="@+id/action_nav_signup_to_nav_auth"
+            app:destination="@id/nav_auth" />
+    </fragment>
     <fragment
         android:id="@+id/nav_auth"
         android:name="uk.ac.abertay.songoftheday.ui.auth.AuthFragment"
