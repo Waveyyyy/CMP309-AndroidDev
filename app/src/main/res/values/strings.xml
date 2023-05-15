@@ -12,5 +12,6 @@
     <string name="menu_playlist">Playlist</string>
     <string name="menu_calendar">Calendar</string>
     <string name="menu_auth">Login</string>
+    <string name="menu_signup">Signup</string>
     <string name="menu_profile">Profile</string>
 </resources>

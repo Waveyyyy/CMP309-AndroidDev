@@ -54,10 +54,10 @@ class HomeFragment : Fragment() {
 
     private fun checkLoggedIn(): Boolean {
         if (auth.currentUser  == null) {
-            binding.fabHome.hide()
+            binding.root.getViewById(R.id.fab_home).visibility = View.GONE
             return false
         }
-        binding.fabHome.show()
+        binding.root.getViewById(R.id.fab_home).visibility = View.VISIBLE
         return true
     }
 
