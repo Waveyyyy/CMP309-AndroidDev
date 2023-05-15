@@ -1,6 +1,7 @@
 package uk.ac.abertay.songoftheday.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import uk.ac.abertay.songoftheday.R
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -44,23 +46,34 @@ class AuthFragment : Fragment() {
         }
         binding.submitButton.setOnClickListener {
             if (auth.currentUser == null) {
-                submitLoginDetails()
+                submitLoginDetails(view)
             }
         }
-
-
     }
 
-    private fun submitLoginDetails() {
+    private fun submitLoginDetails(view: View) {
             val email = binding.emailField.text.toString().trim()
             val password = binding.passwordField.text.toString().trim()
-            Snackbar.make(binding.root, "Username:$email + Password:$password", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            if (authViewModel.logUserIn(email, password, auth))
-            {
-                Snackbar.make(binding.root, "Authentication Successful", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            } else {
-                Snackbar.make(binding.root, "Authentication Failed", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            }
+            logUserIn(email, password, view)
+    }
+
+    private fun logUserIn(email: String, password: String, view: View) {
+        if ((email != "") && (password != "")) {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        Snackbar.make(
+                            binding.root,
+                            "Authentication Successful",
+                            Snackbar.LENGTH_LONG
+                        ).setAction("Action", null).show()
+                        view.findNavController().navigate(R.id.action_nav_auth_to_nav_profile)
+                    } else {
+                        Snackbar.make(binding.root, "Authentication Failed", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show()
+                    }
+                }
+        }
     }
 
     private fun clearInput() {
