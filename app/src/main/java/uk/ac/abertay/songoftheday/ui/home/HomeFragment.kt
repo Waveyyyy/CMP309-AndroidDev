@@ -57,17 +57,18 @@ class HomeFragment : Fragment() {
         auth = Firebase.auth
         checkLoggedIn()
         if (auth.currentUser != null) {
-            var playlist = FirebaseData(mutableListOf())
+            var playlist: FirebaseData? = FirebaseData(mutableListOf())
             val playlistList = ArrayList<TextView>()
 
             val linearLayout: LinearLayout =
                 binding.root.findViewById<LinearLayout>(R.id.linearLayout_home)
             val playlists = db.collection("playlists")
+            Log.d("HomeFragment", auth.uid.toString())
             playlists.document(auth.uid.toString()).get().addOnSuccessListener { document ->
-                playlist = document.toObject(FirebaseData::class.java)!!
+                playlist = document.toObject(FirebaseData::class.java)
                 linearLayout.removeAllViews()
                 playlistList.clear()
-                playlist.tracks.forEach { item ->
+                playlist?.tracks?.forEach { item ->
                     val tv = TextView(requireContext())
                     val layoutParams = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -88,6 +89,9 @@ class HomeFragment : Fragment() {
                     linearLayout.addView(tv, 0)
                     playlistList.add(tv)
                 }
+            }.addOnFailureListener { except ->
+
+                Log.w("HomeFragment", "onfail: $except")
             }
         }
 
@@ -231,7 +235,14 @@ class HomeFragment : Fragment() {
                         href = firebaseTrack.href
                     )
                 )
-            )
+            ).addOnFailureListener { error ->
+                firebaseRef.set(FirebaseData(mutableListOf(TrackData(
+                    track = firebaseTrack!!.name,
+                    dateAdded = LocalDateTime.now().toString(),
+                    addedBy = auth.currentUser!!.email!!.split('@')[0],
+                    href = firebaseTrack.href
+                ))))
+            }
             return
         }
     }
@@ -243,11 +254,6 @@ class HomeFragment : Fragment() {
         }
         binding.root.getViewById(R.id.fab_home).visibility = View.VISIBLE
         return true
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
     }
 
 }
