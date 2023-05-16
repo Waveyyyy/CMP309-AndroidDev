@@ -9,7 +9,6 @@
     tools:openDrawer="start">
 
 
-    <!-- dodgy fucker, maybe remove :^) -->
     <fragment
         android:id="@+id/myNavHostFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
