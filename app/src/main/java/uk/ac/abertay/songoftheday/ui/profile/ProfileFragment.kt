@@ -52,8 +52,8 @@ class ProfileFragment : Fragment() {
 
     private fun changeDisplayValues() {
         val displayName = auth.currentUser?.displayName.toString()
-        if (displayName == null){
-            binding.nameValue.text = ""
+        if (displayName == ""){
+            binding.nameValue.text = auth.currentUser?.email.toString().substringBefore("@")
         }else {
             binding.nameValue.text = displayName
         }

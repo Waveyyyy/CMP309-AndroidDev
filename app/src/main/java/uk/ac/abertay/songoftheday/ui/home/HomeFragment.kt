@@ -44,8 +44,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private var db: FirebaseFirestore = Firebase.firestore
-    private var taskList: ArrayList<TextView>? = null
-    //private final databaseRef: spunk = db.collection
+    private var playlistList: ArrayList<TextView>? = null
 
 
     override fun onCreateView(
@@ -56,40 +55,41 @@ class HomeFragment : Fragment() {
 
 
         auth = Firebase.auth
-        var playlist = FirebaseData(mutableListOf())
-        val playlistList = ArrayList<TextView>()
+        checkLoggedIn()
+        if (auth.currentUser != null) {
+            var playlist = FirebaseData(mutableListOf())
+            val playlistList = ArrayList<TextView>()
 
-        val linearLayout: LinearLayout =
-            binding.root.findViewById<LinearLayout>(R.id.linearLayout_home)
-        val playlists = db.collection("playlists")
-        playlists.document(auth.uid.toString()).get().addOnSuccessListener { document ->
-            playlist = document.toObject(FirebaseData::class.java)!!
-            linearLayout.removeAllViews()
-            playlistList.clear()
-            playlist.tracks.forEach { item ->
-                val tv = TextView(requireContext())
-                val layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                layoutParams.setMargins(10, 10, 10, 10)
-                tv.layoutParams = layoutParams
-                tv.text = HtmlCompat.fromHtml(
-                    "<b>" + item.track + " : " +
-                            item.dateAdded + "</b>" + "<br />" + "<a href=\"" + item.href + "\">Spotify Link" + "</a>" + "<b>" +
-                            "<br />Added By: </b>" + item.addedBy,
-                    HtmlCompat.FROM_HTML_MODE_COMPACT
-                )
-                tv.setTextColor(-0x1000000)
-                tv.setBackgroundColor(-0x19191a)
-                tv.gravity = Gravity.CENTER
-                tv.setPadding(0, 40, 0, 20)
-                linearLayout.addView(tv, 0)
-                playlistList.add(tv)
+            val linearLayout: LinearLayout =
+                binding.root.findViewById<LinearLayout>(R.id.linearLayout_home)
+            val playlists = db.collection("playlists")
+            playlists.document(auth.uid.toString()).get().addOnSuccessListener { document ->
+                playlist = document.toObject(FirebaseData::class.java)!!
+                linearLayout.removeAllViews()
+                playlistList.clear()
+                playlist.tracks.forEach { item ->
+                    val tv = TextView(requireContext())
+                    val layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                    layoutParams.setMargins(10, 10, 10, 10)
+                    tv.layoutParams = layoutParams
+                    tv.text = HtmlCompat.fromHtml(
+                        "<b>" + item.track + " : " +
+                                item.dateAdded + "</b>" + "<br />" + "<a href=\"" + item.href + "\">Spotify Link" + "</a>" + "<b>" +
+                                "<br />Added By: </b>" + item.addedBy,
+                        HtmlCompat.FROM_HTML_MODE_COMPACT
+                    )
+                    tv.setTextColor(-0x1000000)
+                    tv.setBackgroundColor(-0x19191a)
+                    tv.gravity = Gravity.CENTER
+                    tv.setPadding(0, 40, 0, 20)
+                    linearLayout.addView(tv, 0)
+                    playlistList.add(tv)
+                }
             }
         }
-
-        checkLoggedIn()
 
         return binding.root
     }
@@ -243,6 +243,11 @@ class HomeFragment : Fragment() {
         }
         binding.root.getViewById(R.id.fab_home).visibility = View.VISIBLE
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 
 }
