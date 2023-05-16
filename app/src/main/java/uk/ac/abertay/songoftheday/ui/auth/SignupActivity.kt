@@ -51,7 +51,7 @@ class SignupActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Log.i("UserCreated", "uid: ${auth.currentUser?.uid}")
+                        Log.i("SignupActivity", "Signin Successful uid: ${auth.currentUser?.uid}")
                         // feedback to the user that the account was successfully created
                         Snackbar.make(
                             binding.root,
@@ -62,7 +62,7 @@ class SignupActivity : AppCompatActivity() {
                         auth.currentUser!!.updateProfile(updateUsersName(usersName, auth))
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    Log.i("UsernameUpdated", "value: $usersName")
+                                    Log.i("SignupActivity", "username: $usersName")
                                 }
                             }
                         // log out the user after they create their account
@@ -73,7 +73,7 @@ class SignupActivity : AppCompatActivity() {
                         // if the account failed to create, inform the user of this
                         Snackbar.make(binding.root, "Account Creation Failed", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show()
-                        Log.e("AccountCreationFailure", "Issue with firebase")
+                        Log.e("SignupActivity", "Signup error, Issue with firebase auth")
                     }
                 }
         } else {
@@ -81,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
             // an error occurred when creating the account
             Snackbar.make(binding.root, "Error Creating Account", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            Log.w("AccountCreationError", "Empty string or password mismatch")
+            Log.e("SignupActivity", "Signup Error, Empty string or password mismatch")
         }
     }
 
@@ -98,6 +98,6 @@ class SignupActivity : AppCompatActivity() {
         binding.emailField.setText("")
         binding.passwordField.setText("")
         binding.passwordconfirmField.setText("")
-        Log.i("InputCleared", "Signup Information")
+        Log.i("SignupActivity", "Signup Information cleared")
     }
 }

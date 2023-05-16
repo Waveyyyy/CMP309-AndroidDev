@@ -69,21 +69,21 @@ class AuthFragment : Fragment() {
                             "Authentication Successful",
                             Snackbar.LENGTH_LONG
                         ).setAction("Action", null).show()
-                        Log.i("LoginSuccessful", "user logged in successfully")
+                        Log.i("AuthFragment", "Successful Login")
                         // send user to profile page after logging in
                         view.findNavController().navigate(R.id.action_nav_auth_to_nav_profile)
                     } else {
                         // if the login failed inform the user
                         Snackbar.make(binding.root, "Authentication Failed", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show()
-                        Log.w("LoginFailure", "User failed to login, possible firebase issue")
+                        Log.w("AuthFragment", "User failed to login")
                     }
                 }
         } else {
             // if email or password are incorrect tell the user so
             Snackbar.make(binding.root, "Error logging in", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            Log.w("LoginError", "empty string supplied")
+            Log.w("AuthFragment", "Empty string supplied")
 
         }
     }
@@ -92,12 +92,12 @@ class AuthFragment : Fragment() {
     private fun clearInput() {
         binding.emailField.setText("")
         binding.passwordField.setText("")
-        Log.i("InputCleared", "Input boxes cleared")
+        Log.i("AuthFragment", "Input boxes cleared")
     }
 
     override fun onDestroy() {
         clearInput()
         super.onDestroy()
-        Log.i("FragmentDestroyed", "fragment was destroyed")
+        Log.i("AuthFragment", "fragment was destroyed")
     }
 }
