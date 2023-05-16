@@ -41,7 +41,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var auth: FirebaseAuth
     private var db: FirebaseFirestore = Firebase.firestore
@@ -52,7 +51,6 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
