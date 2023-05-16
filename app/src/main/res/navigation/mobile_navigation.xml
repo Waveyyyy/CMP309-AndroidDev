@@ -12,17 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_playlist"
-        android:name="uk.ac.abertay.songoftheday.ui.playlist.PlaylistFragment"
-        android:label="@string/menu_playlist"
-        tools:layout="@layout/fragment_playlist" />
-
-    <fragment
-        android:id="@+id/nav_calendar"
-        android:name="uk.ac.abertay.songoftheday.ui.calendar.CalendarFragment"
-        android:label="@string/menu_calendar"
-        tools:layout="@layout/fragment_calendar" />
-    <fragment
         android:id="@+id/nav_signup"
         android:name="uk.ac.abertay.songoftheday.ui.auth.SignupActivity"
         android:label="@string/menu_signup"
