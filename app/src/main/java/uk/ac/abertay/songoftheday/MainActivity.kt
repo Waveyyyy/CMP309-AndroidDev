@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -55,22 +56,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_profile)
-        {
-            val navctrl :NavController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main)
+        if (item.itemId == R.id.action_profile) {
+            val navctrl: NavController =
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main)
             navctrl.navigate(R.id.nav_profile)
-        }
-        else if (item.itemId == R.id.action_login)
-        {
-            val navctrl :NavController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main)
+        } else if (item.itemId == R.id.action_login) {
+            val navctrl: NavController =
+                Navigation.findNavController(this, R.id.nav_host_fragment_content_main)
             navctrl.navigate(R.id.nav_auth)
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun checkLoggedIn(menu: Menu) {
-        if (auth.currentUser == null)
-        {
+        if (auth.currentUser == null) {
             menu.findItem(R.id.action_login).setVisible(true)
             menu.findItem(R.id.action_profile).setVisible(false)
             return
@@ -78,18 +77,6 @@ class MainActivity : AppCompatActivity() {
         menu.findItem(R.id.action_login).setVisible(false)
         menu.findItem(R.id.action_profile).setVisible(true)
     }
-// TODO: HELPPPPPPP MEEEEEE LUKAAAAAAAAAS
-/*
-    private fun changeDisplayValues() {
-        val displayName = auth.currentUser?.displayName.toString()
-        val bindName = binding.root.findViewById<String>(R.id.nav_header_name)
-        if (displayName == null){
-        }else {
-            binding.nameValue.text = displayName
-        }
-        binding.emailValue.text = auth.currentUser?.email.toString()
-    }
-*/
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
